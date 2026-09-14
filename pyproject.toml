@@ -30,3 +30,6 @@ ignore = [
     "T201", "ANN202", "COM819", "COM812", "TRY003", "EM101",
     "D", "CPY",
 ]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"]
