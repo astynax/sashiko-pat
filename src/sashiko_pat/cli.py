@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
 
 from sashiko_pat.models import Offsets, Steps
+from sashiko_pat.render import render_grid
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -64,4 +65,4 @@ def run_interactive_loop(
         cfg.y.offsets_raw, cfg.y.offsets = prompt_param(
             "Y offsets", cfg.y.offsets_raw, Offsets.parse, input_func, print_func
         )
-        print_func("TODO")
+        print_func(render_grid(cfg))

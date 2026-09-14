@@ -8,6 +8,7 @@ from sashiko_pat import (
     Steps,
     main,
     prompt_param,
+    render_grid,
     run_interactive_loop,
 )
 
@@ -106,7 +107,7 @@ def test_run_interactive_loop_single_cycle() -> None:
         "Y steps [1]: ",
         "Y offsets [0]: ",
     ]
-    assert prints == ["TODO"]
+    assert prints == [render_grid(config)]
     assert config.x.steps_raw == "21"
     assert config.x.steps == Steps.parse("21")
     assert config.x.offsets_raw == "10"
@@ -134,7 +135,8 @@ def test_run_interactive_loop_preserves_values_across_cycles() -> None:
     with pytest.raises(StopIteration):
         run_interactive_loop(config, mock_input, prints.append)
 
-    assert prints == ["TODO", "TODO"]
+    rendered_cycle1_and_cycle2 = render_grid(config)
+    assert prints == [rendered_cycle1_and_cycle2, rendered_cycle1_and_cycle2]
     assert prompts == [
         # Cycle 1 prompts
         "X steps [1]: ",
