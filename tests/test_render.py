@@ -141,7 +141,7 @@ def test_render_grid_small_default_pattern() -> None:
         y=AxisConfig(steps=Steps.parse("1"), offsets=Offsets.parse("0")),
     )
     rendered = render_grid(config, width=3, height=2)
-    expected = " -   - \n| | | |\n -   - \n       \n -   - "
+    expected = "┌─┐ ┌─┐\n│ │ │ │\n└─┘ └─┘\n       \n ─   ─ "
     assert rendered == expected
 
 
@@ -151,7 +151,7 @@ def test_render_grid_horizontal_spacing_steps_12() -> None:
         y=AxisConfig(steps=Steps.parse("1"), offsets=Offsets.parse("0")),
     )
     rendered = render_grid(config, width=4, height=1)
-    expected = " -     - \n| | | | |\n -     - "
+    expected = "┌─┐   ┌─┐\n│ │ │ │ │\n└─┘   └─┘"
     assert rendered == expected
 
 
@@ -161,7 +161,7 @@ def test_render_grid_row_offsets() -> None:
         y=AxisConfig(steps=Steps.parse("1"), offsets=Offsets.parse("0")),
     )
     rendered = render_grid(config, width=3, height=2)
-    expected = " -   - \n| | | |\n   -   \n       \n -   - "
+    expected = "┌─┐ ┌─┐\n│ │ │ │\n  └─┘  \n       \n ─   ─ "
     assert rendered == expected
 
 
@@ -171,7 +171,24 @@ def test_render_grid_column_offsets() -> None:
         y=AxisConfig(steps=Steps.parse("1"), offsets=Offsets.parse("1")),
     )
     rendered = render_grid(config, width=3, height=2)
-    expected = " -   - \n|   |  \n -   - \n  |   |\n -   - "
+    expected = "┌─  ┌─ \n│   │  \n└─┐ └─┐\n  │   │\n ─┘  ─┘"
+    assert rendered == expected
+
+
+def test_render_grid_zero_dimensions() -> None:
+    config = GridConfig.default()
+    assert render_grid(config, width=0, height=0) == " "
+    assert render_grid(config, width=0, height=2) == " \n│\n \n \n "
+    assert render_grid(config, width=2, height=0) == " ─   "
+
+
+def test_render_grid_4way_crossings_and_tees() -> None:
+    config = GridConfig(
+        x=AxisConfig(steps=Steps.parse("2"), offsets=Offsets.parse("0")),
+        y=AxisConfig(steps=Steps.parse("2"), offsets=Offsets.parse("0")),
+    )
+    rendered = render_grid(config, width=2, height=2)
+    expected = "┌─┬─┐\n│ │ │\n├─┼─┤\n│ │ │\n└─┴─┘"
     assert rendered == expected
 
 
