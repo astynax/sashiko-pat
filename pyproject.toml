@@ -1,0 +1,32 @@
+[project]
+name = "sashiko-pat"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+license = "MIT"
+authors = [
+    { name = "astynax", email = "astynax@users.noreply.github.com" }
+]
+requires-python = ">=3.14"
+dependencies = []
+
+[project.scripts]
+sashiko-pat = "sashiko_pat:main"
+
+[build-system]
+requires = ["uv_build>=0.12.11,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.1",
+    "ruff>=0.16.5",
+    "ty>=0.0.77",
+]
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "T201", "ANN202", "COM819", "COM812", "TRY003", "EM101",
+    "D", "CPY",
+]
